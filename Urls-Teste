@@ -1,0 +1,12 @@
+Urls:
+
+http://localhost:8080/h2-console/
+
+http://localhost:8080/reservas
+http://localhost:8080/itensCopa
+http://localhost:8080/equipamentos
+http://localhost:8080/salas
+http://localhost:8080/sala?id=1
+http://localhost:8080/reserva?id=1
+http://localhost:8080/itemCopa?id=1
+http://localhost:8080/equipamento?id=1

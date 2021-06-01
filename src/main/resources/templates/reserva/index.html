@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Reserva de Salas</title>
+</head>
+<body>
+
+	<h3>Reserva de Salas de Reunião</h3>
+
+	<header>
+		<h1>Reservas</h1>
+	</header>
+	<section>
+		<p>
+		
+		<form method="post">
+			Data: <input type="date" value="" name="data"></input>
+			Hora Inicial: <input type="time" value="" name="horaInicio"></input>
+			Hora Final: <input type="time" value="" name="horaFim"></input>
+			Quantidade de Participantes: <input type="text" value="" name="qtdePerticipantes"></input>
+			Sala de reunião: <input type="text" value="" name="sala"></input>
+			Equipamentos: <input type="text" value="" name="equipamentos"></input>
+			Itens copa: <input type="text" value="" name="itensCopa"></input>
+			Observações: <input type="text" value="" name="observacoes"></input>
+			
+			<button type="submit">Salvar</button>
+		</form>
+
+			Data: <input type="date"></input>
+
+		</p>
+	</section>
+	<footer>
+		<p>Reservas</p>
+	</footer>
+
+</body>
+</html>

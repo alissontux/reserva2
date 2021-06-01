@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Reserva de Salas</title>
+</head>
+<body>
+
+	<h3>Reserva de Salas de Reunião</h3>
+
+	<header>
+		<h1>Cadastro de equipamento</h1>
+	</header>
+	<section>
+		<p>
+		
+		<div>
+		<form method="post" action="/equipamento">
+			Nome: <input type="text" value="Auditório" name="nome"></input>
+			Descricao: <input type="text" value="Auditório principal" name="descricao"></input>
+			
+			<button type="submit">Salvar</button>
+		</form>
+		</div>
+
+		</p>
+	</section>
+	<footer>
+		<p>Reservas</p>
+	</footer>
+
+</body>
+</html>
