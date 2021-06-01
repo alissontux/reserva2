@@ -5,6 +5,8 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+
 import br.com.alissonPrado.reserva2.model.Equipamento;
 import br.com.alissonPrado.reserva2.model.ItemCopa;
 import br.com.alissonPrado.reserva2.model.Reserva;
@@ -72,6 +74,12 @@ public class ReservaDto {
 	public static List<ReservaDto> converter(List<Reserva> listReserva) {
 
 		return listReserva.stream().map(ReservaDto::new).collect(Collectors.toList());
+
+	}
+
+	public static Page<ReservaDto> converterComPaginacao(Page<Reserva> listReserva) {
+
+		return listReserva.map(ReservaDto::new);
 
 	}
 
