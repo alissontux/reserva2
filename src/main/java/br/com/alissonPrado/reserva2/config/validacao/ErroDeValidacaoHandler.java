@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ErroDeValidacaoHandler {
 
 	/**
-	 * Busca o Idioma no navegador para mostrar a mensagem no idioma correto
+	 * Busca o Idioma no navegador para mostrar a mensagem no idioma correto.
 	 */
 	@Autowired
 	private MessageSource messageSource;
