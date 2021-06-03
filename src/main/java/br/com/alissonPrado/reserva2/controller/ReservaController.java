@@ -11,9 +11,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -54,7 +51,7 @@ public class ReservaController {
 	private ItemCopaRepository itemCopaRepository;
 
 	/**
-	 * Sem paginação
+	 * Sem paginação url: http://localhost:8080/reserva/lista
 	 */
 //	 @GetMapping("/lista") public List<ReservaDto> listaReservas() {
 //	 
@@ -63,10 +60,9 @@ public class ReservaController {
 //	 return ReservaDto.converter(reservaRepository.findAll());
 //	 
 //	 }
-	 	
-	
+
 	/**
-	 * Com paginação
+	 * Com paginação url: http://localhost:8080/reserva/lista?pagina=0&qtde=5
 	 */
 //	@GetMapping("/lista")
 //	public Page<ReservaDto> listaReservas(@RequestParam int pagina, @RequestParam int qtde) {
@@ -76,14 +72,27 @@ public class ReservaController {
 //		return ReservaDto.converterComPaginacao(reservaRepository.findAll(paginacao));
 //
 //	}
-	
+
 	/**
-	 * Com paginação e ordenação
+	 * Com paginação e ordenação url:
+	 * http://localhost:8080/reserva/lista?pagina=0&qtde=5&ordenacao=id
+	 */
+//	@GetMapping("/lista")
+//	public Page<ReservaDto> listaReservas(@RequestParam int pagina, @RequestParam int qtde, @RequestParam String ordenacao) {
+//		
+//		Pageable paginacao = PageRequest.of(pagina, qtde, Direction.ASC, ordenacao);
+//
+//		return ReservaDto.converterComPaginacao(reservaRepository.findAll(paginacao));
+//
+//	}
+
+	/**
+	 * Com paginação e ordenação recebendo um objeto Pageable Incluir a
+	 * tag @EnableSpringDataWebSupport na classe main url:
+	 * http://localhost:8080/reserva/lista?page=0&size=2&sort=id,desc
 	 */
 	@GetMapping("/lista")
-	public Page<ReservaDto> listaReservas(@RequestParam int pagina, @RequestParam int qtde, @RequestParam String ordenacao) {
-		
-		Pageable paginacao = PageRequest.of(pagina, qtde, Direction.ASC, ordenacao);
+	public Page<ReservaDto> listaReservas(Pageable paginacao) {
 
 		return ReservaDto.converterComPaginacao(reservaRepository.findAll(paginacao));
 
