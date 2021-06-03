@@ -10,6 +10,9 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -36,6 +39,18 @@ import br.com.alissonPrado.reserva2.repository.ItemCopaRepository;
 import br.com.alissonPrado.reserva2.repository.ReservaRepository;
 import br.com.alissonPrado.reserva2.repository.SalaRepository;
 
+/**
+ * @author aliss
+ *
+ */
+/**
+ * @author aliss
+ *
+ */
+/**
+ * @author aliss
+ *
+ */
 @RestController
 @RequestMapping("/reserva")
 public class ReservaController {
@@ -89,8 +104,8 @@ public class ReservaController {
 //	}
 
 	/**
-	 * Com paginação e ordenação recebendo um objeto Pageable 
-	 * Incluir a * tag @EnableSpringDataWebSupport na classe main url:
+	 * Com paginação e ordenação recebendo um objeto Pageable Incluir a *
+	 * tag @EnableSpringDataWebSupport na classe main url:
 	 * http://localhost:8080/reserva/lista?page=0&size=2&sort=id,desc
 	 */
 //	@GetMapping("/lista")
@@ -99,20 +114,22 @@ public class ReservaController {
 //		return ReservaDto.converterComPaginacao(reservaRepository.findAll(paginacao));
 //
 //	}
-	
+
 	/**
-	 * Com paginação e ordenação recebendo um objeto Pageable e definindo parâmetros padrão
-	 * Incluir a * tag @EnableSpringDataWebSupport na classe main url:
-	 * http://localhost:8080/reserva/lista?page=0&size=2&sort=id,desc
+	 * Com paginação e ordenação recebendo um objeto Pageable e definindo parâmetros padrão 
+	 * Para habilitar a paginação incluir a tag @EnableSpringDataWebSupport na classe main 
+	 * url: http://localhost:8080/reserva/lista?page=0&size=2&sort=id,desc
+	 * 
+	 * Para habilitar o cahe incluir a tag @EnableCaching na classe main 
 	 */
 	@GetMapping("/lista")
-	public Page<ReservaDto> listaReservas(@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
+	@Cacheable(value = "listaReservas")
+	public Page<ReservaDto> listaReservas(
+			@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
 
 		return ReservaDto.converterComPaginacao(reservaRepository.findAll(paginacao));
 
 	}
-	
-	
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ReservaDto> findReservaById(@PathVariable Long id) {
@@ -125,7 +142,11 @@ public class ReservaController {
 		}
 	}
 
+	/**
+	 * Tag @CacheEvict(value = "listaReservas") para limpar cahe
+	 */
 	@PostMapping
+	@CacheEvict(value = "listaReservas", allEntries = true)
 	public ResponseEntity<ReservaDto> cadastraReserva(@RequestBody @Valid ReservaForm reservaForm,
 			UriComponentsBuilder uriBuilder) {
 
@@ -139,6 +160,7 @@ public class ReservaController {
 
 	@PutMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaReservas", allEntries = true)
 	public ResponseEntity<ReservaDto> atualizaReserva(@PathVariable Long id,
 			@RequestBody @Valid ReservaForm reservaForm) {
 		Reserva reserva = reservaForm.atualizaReserva(id, reservaRepository, salaRepository);
@@ -151,6 +173,7 @@ public class ReservaController {
 	}
 
 	@DeleteMapping("/{id}")
+	@CacheEvict(value = "listaReservas", allEntries = true)
 	public ResponseEntity<?> removeReserva(@PathVariable Long id) {
 		Optional<Reserva> reservaOptional = reservaRepository.findById(id);
 

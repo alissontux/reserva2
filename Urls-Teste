@@ -10,3 +10,4 @@ http://localhost:8080/sala?id=1
 http://localhost:8080/reserva?id=1
 http://localhost:8080/itemCopa?id=1
 http://localhost:8080/equipamento?id=1
+http://localhost:8080/reserva/lista?page=0&size=2&sort=id,desc
