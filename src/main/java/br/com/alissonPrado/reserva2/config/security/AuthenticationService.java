@@ -12,7 +12,7 @@ import br.com.alissonPrado.reserva2.model.Usuario;
 import br.com.alissonPrado.reserva2.repository.UsuarioRepository;
 
 @Service
-public class AutenticationService implements UserDetailsService {
+public class AuthenticationService implements UserDetailsService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;

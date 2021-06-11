@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alissonPrado.reserva2.config.security.TokenService;
+import br.com.alissonPrado.reserva2.controller.dto.TokenDto;
 import br.com.alissonPrado.reserva2.controller.form.LoginForm;
 
 @RestController
 @RequestMapping("/auth")
-public class AutenticationController {
+public class AuthenticationController {
 	
 	@Autowired
 	private AuthenticationManager authManager;
@@ -27,7 +28,7 @@ public class AutenticationController {
 	private TokenService tokenService;
 	
 	@PostMapping
-	public ResponseEntity<?> authenticate(@RequestBody @Valid LoginForm form) {
+	public ResponseEntity<TokenDto> authenticate(@RequestBody @Valid LoginForm form) {
 		
 		UsernamePasswordAuthenticationToken dadosLogin = form.converter();
 		
@@ -36,9 +37,8 @@ public class AutenticationController {
 			
 			String token = tokenService.gerarToken(authentication);
 			
-			System.out.println("Token: " + token);
+			return ResponseEntity.ok(new TokenDto(token, "Bearer"));
 			
-			return ResponseEntity.ok().build();
 		} catch (AuthenticationException e) {
 			return ResponseEntity.badRequest().build();
 		}
